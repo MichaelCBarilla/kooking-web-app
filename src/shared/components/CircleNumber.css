@@ -1,0 +1,11 @@
+.circle-number-container {
+  color: #121212;
+  background-color: #f2f2f2;
+  height: 125px;
+  width: 125px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+}
