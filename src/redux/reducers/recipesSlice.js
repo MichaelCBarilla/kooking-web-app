@@ -3,34 +3,41 @@ import { nanoid } from 'nanoid';
 
 import { RECIPES } from '../../assets/DUMMY_RECIPE_DATA';
 
-const initialState = {
-  recipes: RECIPES,
-};
+const initialState = RECIPES;
 
 const recipesSlice = createSlice({
   name: 'recipes',
   initialState,
   reducers: {
-    addRecipe(state, action) {
-      action.payload.id = nanoid();
-      action.payload.creator = 'hardcoded';
-      state.recipes.push(action.payload);
+    addRecipe: {
+      reducer(state, action) {
+        state.push(action.payload);
+      },
+      prepare(recipe) {
+        recipe.id = nanoid();
+        recipe.creator = 'hardcoded';
+        return {
+          payload: recipe,
+        };
+      },
     },
     editRecipe(state, action) {
       console.log(action);
-      const index = state.recipes.findIndex(recipe => recipe.id === action.payload.id);
+      const index = state.findIndex(recipe => recipe.id === action.payload.id);
       if (index !== -1) {
-        state.recipes[index] = action.payload;
+        state[index] = action.payload;
       }
     },
     deleteRecipe(state, action) {
-      state.recipes = state.recipes.filter(recipe => recipe.id !== action.payload);
+      state = state.filter(
+        (recipe) => recipe.id !== action.payload
+      );
     },
   },
 });
 
 export const { addRecipe, editRecipe, deleteRecipe } = recipesSlice.actions;
 
-export const selectRecipes = (state) => state.recipesState.recipes;
+export const selectRecipes = (state) => state.recipes;
 
 export default recipesSlice.reducer;
