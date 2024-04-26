@@ -8,6 +8,12 @@ dependencies:
   bootstrap:
     specifier: ^5.3.3
     version: 5.3.3(@popperjs/core@2.11.8)
+  nanoid:
+    specifier: ^5.0.7
+    version: 5.0.7
+  objectmodel:
+    specifier: ^4.4.5
+    version: 4.4.5
   prop-types:
     specifier: ^15.8.1
     version: 15.8.1
@@ -2012,6 +2018,12 @@ packages:
     hasBin: true
     dev: true
 
+  /nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    dev: false
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
@@ -2079,6 +2091,11 @@ packages:
       define-properties: 1.2.1
       es-object-atoms: 1.0.0
     dev: true
+
+  /objectmodel@4.4.5:
+    resolution: {integrity: sha512-8CnPlotG8+UdsrtpBku7BVqKke/VbQFw6YzfthOtp8ErAgaWRDWAtxZkc90+0hK0cpqRYbJ+4r+8TMzDLMHT7A==}
+    engines: {node: '>=13', npm: '>=6.14'}
+    dev: false
 
   /once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
