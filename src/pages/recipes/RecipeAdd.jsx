@@ -2,6 +2,8 @@ import './RecipeAdd.css';
 
 import { useState } from 'react';
 import { Container, Form, Row, Button, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 
 import GeneralRecipeEditForm from '../../components/recipes/edit/GeneralRecipeEditForm';
@@ -9,23 +11,31 @@ import IngredientEditForm from '../../components/recipes/edit/IngredientEditForm
 import DirectionsEditForm from '../../components/recipes/edit/DirectionsEditForm';
 
 import { Recipe } from '../../models/recipe';
-import useRecipes from '../../hooks/useRecipes';
+
+import { addRecipe } from '../../redux/reducers/recipesSlice';
 
 const RecipeAdd = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [recipe, setRecipe] = useState(new Recipe());
-  const { addRecipe } = useRecipes();
 
   const onChangeGeneralRecipeForm = (valueType, newValue) => {
     const newRecipe = {
       ...recipe,
     };
-    newRecipe[valueType] = newValue;
+    if (valueType === 'ingredientsLength' || valueType == 'servings' || valueType == 'caloriesPerServing' || valueType == 'totalMinutes') {
+      newRecipe[valueType] = +newValue;
+    } else {
+      newRecipe[valueType] = newValue;
+    }
     setRecipe(() => newRecipe);
   };
 
   const onAddRecipe = (event) => {
     event.preventDefault();
-    addRecipe(recipe);
+    dispatch(addRecipe(recipe));
+    navigate(`/recipes/${recipe.id}`);
   };
 
   const onAddIngredient = (addedIngredient) => {
