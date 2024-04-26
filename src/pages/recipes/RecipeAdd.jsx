@@ -4,14 +4,16 @@ import { useState } from 'react';
 import { Container, Form, Row, Button, Col } from 'react-bootstrap';
 import { nanoid } from 'nanoid';
 
-import GeneralRecipeEditForm from '../components/edit/GeneralRecipeEditForm';
-import IngredientEditForm from '../components/edit/IngredientEditForm';
-import DirectionsEditForm from '../components/edit/DirectionsEditForm';
+import GeneralRecipeEditForm from '../../recipes/components/edit/GeneralRecipeEditForm';
+import IngredientEditForm from '../../recipes/components/edit/IngredientEditForm';
+import DirectionsEditForm from '../../recipes/components/edit/DirectionsEditForm';
 
 import { Recipe } from '../../models/recipe';
+import useRecipes from '../../hooks/useRecipes';
 
 const RecipeAdd = () => {
   const [recipe, setRecipe] = useState(new Recipe());
+  const { addRecipe } = useRecipes();
 
   const onChangeGeneralRecipeForm = (valueType, newValue) => {
     const newRecipe = {
@@ -23,8 +25,7 @@ const RecipeAdd = () => {
 
   const onAddRecipe = (event) => {
     event.preventDefault();
-
-    console.log(recipe);
+    addRecipe(recipe);
   };
 
   const onAddIngredient = (addedIngredient) => {

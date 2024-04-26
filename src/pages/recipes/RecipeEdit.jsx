@@ -4,20 +4,19 @@ import Container from 'react-bootstrap/Container';
 
 
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Form, Row, Button, Col } from 'react-bootstrap';
 import { nanoid } from 'nanoid';
 
-import GeneralRecipeEditForm from '../components/edit/GeneralRecipeEditForm';
-import IngredientEditForm from '../components/edit/IngredientEditForm';
-import DirectionsEditForm from '../components/edit/DirectionsEditForm';
+import GeneralRecipeEditForm from '../../recipes/components/edit/GeneralRecipeEditForm';
+import IngredientEditForm from '../../recipes/components/edit/IngredientEditForm';
+import DirectionsEditForm from '../../recipes/components/edit/DirectionsEditForm';
 
 import useRecipes from '../../hooks/useRecipes';
 
 const RecipeEdit = () => {
   const { recipes, editRecipe } = useRecipes();
   const rid = useParams().rid;
-  const navigate = useNavigate();
   const [recipe, setRecipe] = useState(
     recipes.find((recipe) => recipe.id == rid)
   );
@@ -33,7 +32,6 @@ const RecipeEdit = () => {
   const onUpdateRecipe = (event) => {
     event.preventDefault();
     editRecipe(recipe);
-    navigate(`/recipes/${rid}`);
     console.log(recipe);
   };
 

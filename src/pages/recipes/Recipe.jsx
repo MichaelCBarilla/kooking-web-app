@@ -4,16 +4,18 @@ import './Recipe.css'
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-import RecipeSummary from '../components/RecipeSummary';
-import RecipeIngredients from '../components/RecipeIngredients';
-import RecipeDirections from '../components/RecipeDirections';
+import RecipeSummary from '../../recipes/components/RecipeSummary';
+import RecipeIngredients from '../../recipes/components/RecipeIngredients';
+import RecipeDirections from '../../recipes/components/RecipeDirections';
 
 import useRecipes from '../../hooks/useRecipes';
 
 const Recipe = () => {
   const { recipes } = useRecipes();
   const rid = useParams().rid;
+  console.log(recipes);
   const recipe = recipes.find((recipe) => recipe.id === rid);
+  console.log(recipe);
   
   return (
     <Container id='recipeContainer'>

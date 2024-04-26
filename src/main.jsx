@@ -12,11 +12,11 @@ import {
 import App from './App'
 import Landing from './Landing'
 import ErrorPage from './ErrorPage';
-import Feed from './feed/pages/Feed';
-import Recipes from './recipes/pages/Recipes';
-import Recipe from './recipes/pages/Recipe';
-import RecipeEdit from './recipes/pages/RecipeEdit';
-import RecipeAdd from './recipes/pages/RecipeAdd';
+import Feed from './pages/feed/Feed';
+import Recipes from './pages/recipes/Recipes';
+import Recipe from './pages/recipes/Recipe';
+import RecipeEdit from './pages/recipes/RecipeEdit';
+import RecipeAdd from './pages/recipes/RecipeAdd';
 
 
 const router = createBrowserRouter([
