@@ -13,11 +13,11 @@ import useRecipes from '../../hooks/useRecipes';
 const Recipe = () => {
   const { recipes } = useRecipes();
   const rid = useParams().rid;
-  const recipe = recipes.find((recipe) => recipe.id == rid);
+  const recipe = recipes.find((recipe) => recipe.id === rid);
   
   return (
     <Container id='recipeContainer'>
-      <RecipeSummary title={recipe.title} rid={recipe.id.toString()} imgUrl={recipe.imgUrl} creator={recipe.creator} rating={recipe.rating} description={recipe.description} ingredientsLength={recipe.ingredients.length} servings={recipe.servings} caloriesPerServing={recipe.caloriesPerServing} totalMinutes={recipe.totalMinutes}/>
+      <RecipeSummary title={recipe.title} rid={recipe.id} imgUrl={recipe.imgUrl} creator={recipe.creator} rating={recipe.rating} description={recipe.description} ingredientsLength={recipe.ingredients.length} servings={recipe.servings} caloriesPerServing={recipe.caloriesPerServing} totalMinutes={recipe.totalMinutes}/>
       <Row>
         <Col className='me-2'>
          <RecipeDirections directions={recipe.directions}/>

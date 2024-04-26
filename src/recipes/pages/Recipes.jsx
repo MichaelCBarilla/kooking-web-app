@@ -32,7 +32,7 @@ const Recipes = () => {
             <RecipeCard
               title={recipe.title}
               imgUrl={recipe.imgUrl}
-              rid={recipe.id.toString()}
+              rid={recipe.id}
               description={recipe.description}
             />
           </Col>
