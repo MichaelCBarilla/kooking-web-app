@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Row, Button, Col } from 'react-bootstrap';
+import { nanoid } from 'nanoid';
 
 import GeneralRecipeEditForm from '../components/edit/GeneralRecipeEditForm';
 import IngredientEditForm from '../components/edit/IngredientEditForm';
@@ -37,7 +38,7 @@ const RecipeEdit = () => {
   };
 
   const onAddIngredient = (addedIngredient) => {
-    addedIngredient.id = (Math.floor(Math.random() * (10000000 - 100 + 1)) + 100);
+    addedIngredient.id = nanoid();
     setRecipe((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients, addedIngredient],
@@ -68,7 +69,7 @@ const RecipeEdit = () => {
     const newDirections = [...recipe.directions];
     const addedDirectionIndex = addedDirection.order - 1;
 
-    addedDirection.id = (Math.floor(Math.random() * (10000000 - 100 + 1)) + 100);
+    addedDirection.id = nanoid();
 
     // Insert the edited direction at the new position
     newDirections.splice(addedDirectionIndex, 0, addedDirection);
