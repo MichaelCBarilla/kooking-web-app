@@ -1,22 +1,23 @@
 import './RecipeEdit.css';
 
-import Container from 'react-bootstrap/Container';
-
-
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Form, Row, Button, Col } from 'react-bootstrap';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Form, Row, Button, Col } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 
 import GeneralRecipeEditForm from '../../components/recipes/edit/GeneralRecipeEditForm';
 import IngredientEditForm from '../../components/recipes/edit/IngredientEditForm';
 import DirectionsEditForm from '../../components/recipes/edit/DirectionsEditForm';
 
-import useRecipes from '../../hooks/useRecipes';
+import { editRecipe, selectRecipes } from '../../redux/reducers/recipesSlice';
 
 const RecipeEdit = () => {
-  const { recipes, editRecipe } = useRecipes();
+  const recipes = useSelector(selectRecipes);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const rid = useParams().rid;
+
   const [recipe, setRecipe] = useState(
     recipes.find((recipe) => recipe.id == rid)
   );
@@ -25,14 +26,18 @@ const RecipeEdit = () => {
     const newRecipe = {
       ...recipe,
     };
-    newRecipe[valueType] = newValue;
+    if (valueType === 'ingredientsLength' || valueType == 'servings' || valueType == 'caloriesPerServing' || valueType == 'totalMinutes') {
+      newRecipe[valueType] = +newValue;
+    } else {
+      newRecipe[valueType] = newValue;
+    }
     setRecipe(() => newRecipe);
   };
 
-  const onUpdateRecipe = (event) => {
+  const onEditRecipe = (event) => {
     event.preventDefault();
-    editRecipe(recipe);
-    console.log(recipe);
+    dispatch(editRecipe(recipe));
+    navigate(`/recipes/${recipe.id}`)
   };
 
   const onAddIngredient = (addedIngredient) => {
@@ -148,7 +153,7 @@ const RecipeEdit = () => {
             <Button
               variant='primary'
               type='submit'
-              onClick={(event) => onUpdateRecipe(event)}>
+              onClick={(event) => onEditRecipe(event)}>
               Submit
             </Button>
           </Form>
