@@ -2,13 +2,14 @@ import './Recipes.css';
 
 import {Col, Row, Container, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import RecipeCard from '../../components/recipes/RecipeCard';
+import { selectRecipes } from '../../redux/reducers/recipesSlice';
 
-import useRecipes from '../../hooks/useRecipes';
 
 const Recipes = () => {
-  const { recipes } = useRecipes();
+  const recipes = useSelector(selectRecipes);
 
   return (
     <Container>
