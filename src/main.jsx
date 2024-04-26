@@ -8,6 +8,7 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { Provider } from 'react-redux';
 
 import App from './App'
 import Landing from './Landing'
@@ -18,6 +19,7 @@ import Recipe from './pages/recipes/Recipe';
 import RecipeEdit from './pages/recipes/RecipeEdit';
 import RecipeAdd from './pages/recipes/RecipeAdd';
 
+import store from './redux/store'
 
 const router = createBrowserRouter([
   {
@@ -27,7 +29,10 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <App></App>,
+    element: 
+      <Provider store={store}>
+        <App></App>
+      </Provider>,
     errorElement: <ErrorPage />,
     children: [
       {

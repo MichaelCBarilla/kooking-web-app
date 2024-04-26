@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { RECIPES } from '../../assets/DUMMY_RECIPE_DATA';
+
 const initialState = {
-  recipes: [],
+  recipes: RECIPES,
 };
 
 const recipesSlice = createSlice({
