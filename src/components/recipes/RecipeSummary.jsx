@@ -1,14 +1,22 @@
 import './RecipeSummary.css'
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Row, Col, Button }  from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import SummaryStats from './SummaryStats';
+import { deleteRecipe } from '../../redux/reducers/recipesSlice';
 
 const RecipeSummary = ({title, rid, imgUrl, creator, rating, description, ingredientsLength, servings, caloriesPerServing, totalMinutes}) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onDeleteRecipe = () => {
+    dispatch(deleteRecipe(rid));
+    navigate('/recipes');
+  }
+  
   return (
     <>
       <Row className='mt-2'>
@@ -21,9 +29,7 @@ const RecipeSummary = ({title, rid, imgUrl, creator, rating, description, ingred
               <Link to={`/recipes/${rid}/edit`}>
                 <Button variant="warning" size='sm' className='me-2'>Edit</Button>
               </Link>
-              <Link to="/destination-route">
-                <Button variant="danger" size='sm'>Delete</Button>
-              </Link>
+              <Button variant="danger" size='sm' onClick={onDeleteRecipe}>Delete</Button>
             </Col>
           </Row>
           <Row>
@@ -36,7 +42,7 @@ const RecipeSummary = ({title, rid, imgUrl, creator, rating, description, ingred
               <p>Created by {creator}</p>
             </Col>
             <Col className='text-end'>
-              ⭐⭐⭐⭐⭐ {rating}
+               {rating ? '⭐⭐⭐⭐⭐' : 'No rating'}
             </Col>
           </Row>
           <Row>
@@ -58,7 +64,7 @@ RecipeSummary.propTypes = {
   imgUrl: PropTypes.string.isRequired,
   creator: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   ingredientsLength: PropTypes.number.isRequired,
   servings: PropTypes.number.isRequired,
   caloriesPerServing: PropTypes.number.isRequired,
