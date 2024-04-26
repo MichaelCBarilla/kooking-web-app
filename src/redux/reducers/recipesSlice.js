@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { nanoid } from 'nanoid';
 
 import { RECIPES } from '../../assets/DUMMY_RECIPE_DATA';
 
@@ -11,9 +12,12 @@ const recipesSlice = createSlice({
   initialState,
   reducers: {
     addRecipe(state, action) {
+      action.payload.id = nanoid();
+      action.payload.creator = 'hardcoded';
       state.recipes.push(action.payload);
     },
     editRecipe(state, action) {
+      console.log(action);
       const index = state.recipes.findIndex(recipe => recipe.id === action.payload.id);
       if (index !== -1) {
         state.recipes[index] = action.payload;

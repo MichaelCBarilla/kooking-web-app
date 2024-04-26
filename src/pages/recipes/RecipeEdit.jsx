@@ -18,9 +18,7 @@ const RecipeEdit = () => {
   const navigate = useNavigate();
   const rid = useParams().rid;
 
-  const [recipe, setRecipe] = useState(
-    recipes.find((recipe) => recipe.id == rid)
-  );
+  const [recipe, setRecipe] = useState(recipes.find((recipe) => recipe.id == rid));
 
   const onChangeGeneralRecipeForm = (valueType, newValue) => {
     const newRecipe = {

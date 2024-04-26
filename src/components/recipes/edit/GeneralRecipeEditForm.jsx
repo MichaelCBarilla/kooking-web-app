@@ -16,15 +16,15 @@ const GeneralRecipeEditForm = ({recipe, onChangeGeneralRecipeForm}) => {
       </Row>
       <Form.Group className="mb-3" controlId="recipeTitle">
         <Form.Label>Title</Form.Label>
-        <Form.Control type="text" placeholder="Enter Title" value={recipe.title} onChange={(event) => onChangeGeneralRecipeForm('title', event.target.value)} />
+        <Form.Control type="text" placeholder="Enter Title" value={recipe.title || ''} onChange={(event) => onChangeGeneralRecipeForm('title', event.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="recipeImgUrl">
         <Form.Label>Image URL</Form.Label>
-        <Form.Control type="text" placeholder="Enter Image URL" value={recipe.imgUrl} onChange={(event) => onChangeGeneralRecipeForm('imgUrl', event.target.value)} />
+        <Form.Control type="text" placeholder="Enter Image URL" value={recipe.imgUrl || ''} onChange={(event) => onChangeGeneralRecipeForm('imgUrl', event.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="recipeDescription">
         <Form.Label>Description</Form.Label>
-        <Form.Control as='textarea' style={{ height: '100px' }} type="text" placeholder="Enter a Description" value={recipe.description} onChange={(event) => onChangeGeneralRecipeForm('description', event.target.value)} />
+        <Form.Control as='textarea' style={{ height: '100px' }} type="text" placeholder="Enter a Description" value={recipe.description || ''} onChange={(event) => onChangeGeneralRecipeForm('description', event.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="recipeServings">
         <Form.Label>Servings</Form.Label>

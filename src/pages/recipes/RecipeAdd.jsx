@@ -10,7 +10,6 @@ import GeneralRecipeEditForm from '../../components/recipes/edit/GeneralRecipeEd
 import IngredientEditForm from '../../components/recipes/edit/IngredientEditForm';
 import DirectionsEditForm from '../../components/recipes/edit/DirectionsEditForm';
 
-import { Recipe } from '../../models/recipe';
 
 import { addRecipe } from '../../redux/reducers/recipesSlice';
 
@@ -18,7 +17,7 @@ const RecipeAdd = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [recipe, setRecipe] = useState(new Recipe());
+  const [recipe, setRecipe] = useState({ingredients: [], directions: []});
 
   const onChangeGeneralRecipeForm = (valueType, newValue) => {
     const newRecipe = {
