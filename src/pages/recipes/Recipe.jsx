@@ -4,9 +4,9 @@ import './Recipe.css'
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
-import RecipeSummary from '../../recipes/components/RecipeSummary';
-import RecipeIngredients from '../../recipes/components/RecipeIngredients';
-import RecipeDirections from '../../recipes/components/RecipeDirections';
+import RecipeSummary from '../../components/recipes/RecipeSummary';
+import RecipeIngredients from '../../components/recipes/RecipeIngredients';
+import RecipeDirections from '../../components/recipes/RecipeDirections';
 
 import useRecipes from '../../hooks/useRecipes';
 

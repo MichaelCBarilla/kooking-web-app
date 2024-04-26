@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Container, Form, Row, Button, Col } from 'react-bootstrap';
 import { nanoid } from 'nanoid';
 
-import GeneralRecipeEditForm from '../../recipes/components/edit/GeneralRecipeEditForm';
-import IngredientEditForm from '../../recipes/components/edit/IngredientEditForm';
-import DirectionsEditForm from '../../recipes/components/edit/DirectionsEditForm';
+import GeneralRecipeEditForm from '../../components/recipes/edit/GeneralRecipeEditForm';
+import IngredientEditForm from '../../components/recipes/edit/IngredientEditForm';
+import DirectionsEditForm from '../../components/recipes/edit/DirectionsEditForm';
 
 import { Recipe } from '../../models/recipe';
 import useRecipes from '../../hooks/useRecipes';

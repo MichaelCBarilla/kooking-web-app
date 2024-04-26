@@ -3,7 +3,7 @@ import './Recipes.css';
 import {Col, Row, Container, Button} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import RecipeCard from '../../recipes/components/RecipeCard';
+import RecipeCard from '../../components/recipes/RecipeCard';
 
 import useRecipes from '../../hooks/useRecipes';
 
