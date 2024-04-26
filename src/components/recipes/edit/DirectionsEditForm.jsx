@@ -84,7 +84,7 @@ const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDel
               type='text'
               name='directionText'
               placeholder='Direction'
-              value={addedDirection.directionText}
+              value={addedDirection.directionText || ''}
               onChange={(event) =>
                 onChangeAddDirectionForm('directionText', event.target.value)
               }
@@ -97,7 +97,7 @@ const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDel
               min={1}
               max={directions.length + 1}
               placeholder='Order'
-              value={addedDirection.order}
+              value={addedDirection.order || ''}
               onChange={(event) =>
                 onChangeAddDirectionForm('order', event.target.value)
               }
@@ -127,7 +127,7 @@ const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDel
                 type='text'
                 name='directionText'
                 placeholder='Direction'
-                value={editedDirection.directionText != null ? editedDirection.directionText : ''}
+                value={editedDirection.directionText || ''}
                 onChange={(event) =>
                   onChangeEditDirectionForm('directionText', event.target.value)
                 }
@@ -139,7 +139,7 @@ const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDel
                 min={1}
                 max={directions.length}
                 placeholder='order'
-                value={editedDirection.order != null ? editedDirection.order : ''}
+                value={editedDirection.order || ''}
                 onChange={(event) =>
                   onChangeEditDirectionForm('order', event.target.value)
                 }

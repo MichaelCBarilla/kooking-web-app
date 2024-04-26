@@ -1,43 +1,44 @@
-import './RecipeEdit.css';
-
-import Container from 'react-bootstrap/Container';
-
+import './RecipeAdd.css';
 
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Form, Row, Button, Col } from 'react-bootstrap';
+import { Container, Form, Row, Button, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
 
-import GeneralRecipeEditForm from '../components/edit/GeneralRecipeEditForm';
-import IngredientEditForm from '../components/edit/IngredientEditForm';
-import DirectionsEditForm from '../components/edit/DirectionsEditForm';
+import GeneralRecipeEditForm from '../../components/recipes/edit/GeneralRecipeEditForm';
+import IngredientEditForm from '../../components/recipes/edit/IngredientEditForm';
+import DirectionsEditForm from '../../components/recipes/edit/DirectionsEditForm';
 
-import useRecipes from '../../hooks/useRecipes';
 
-const RecipeEdit = () => {
-  const { recipes, editRecipe } = useRecipes();
-  const rid = useParams().rid;
+import { addRecipe } from '../../redux/reducers/recipesSlice';
+
+const RecipeAdd = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [recipe, setRecipe] = useState(
-    recipes.find((recipe) => recipe.id == rid)
-  );
+
+  const [recipe, setRecipe] = useState({ingredients: [], directions: []});
 
   const onChangeGeneralRecipeForm = (valueType, newValue) => {
     const newRecipe = {
       ...recipe,
     };
-    newRecipe[valueType] = newValue;
+    if (valueType === 'ingredientsLength' || valueType == 'servings' || valueType == 'caloriesPerServing' || valueType == 'totalMinutes') {
+      newRecipe[valueType] = +newValue;
+    } else {
+      newRecipe[valueType] = newValue;
+    }
     setRecipe(() => newRecipe);
   };
 
-  const onUpdateRecipe = (event) => {
+  const onAddRecipe = (event) => {
     event.preventDefault();
-    editRecipe(recipe);
-    navigate(`/recipes/${rid}`);
-    console.log(recipe);
+    dispatch(addRecipe(recipe));
+    navigate(`/recipes/${recipe.id}`);
   };
 
   const onAddIngredient = (addedIngredient) => {
-    addedIngredient.id = (Math.floor(Math.random() * (10000000 - 100 + 1)) + 100);
+    addedIngredient.id = nanoid();
     setRecipe((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients, addedIngredient],
@@ -68,9 +69,8 @@ const RecipeEdit = () => {
     const newDirections = [...recipe.directions];
     const addedDirectionIndex = addedDirection.order - 1;
 
-    addedDirection.id = (Math.floor(Math.random() * (10000000 - 100 + 1)) + 100);
+    addedDirection.id = nanoid();
 
-    // Insert the edited direction at the new position
     newDirections.splice(addedDirectionIndex, 0, addedDirection);
     
     for (let i = addedDirectionIndex + 1; i < newDirections.length; i++) {
@@ -149,7 +149,7 @@ const RecipeEdit = () => {
             <Button
               variant='primary'
               type='submit'
-              onClick={(event) => onUpdateRecipe(event)}>
+              onClick={(event) => onAddRecipe(event)}>
               Submit
             </Button>
           </Form>
@@ -159,4 +159,4 @@ const RecipeEdit = () => {
   );
 };
 
-export default RecipeEdit;
+export default RecipeAdd;

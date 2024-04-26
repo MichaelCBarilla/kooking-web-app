@@ -78,7 +78,7 @@ const IngredientEditForm = ({
               type='text'
               name='name'
               placeholder='Name'
-              value={addedIngredient.name}
+              value={addedIngredient.name || ''}
               onChange={(event) =>
                 onChangeAddIngredientForm('name', event.target.value)
               }
@@ -89,7 +89,7 @@ const IngredientEditForm = ({
               type='text'
               name='amount'
               placeholder='Amount'
-              value={addedIngredient.amount}
+              value={addedIngredient.amount || ''}
               onChange={(event) =>
                 onChangeAddIngredientForm('amount', event.target.value)
               }
@@ -100,7 +100,7 @@ const IngredientEditForm = ({
               type='text'
               name='amountType'
               placeholder='Amount Type'
-              value={addedIngredient.amountType}
+              value={addedIngredient.amountType || ''}
               onChange={(event) =>
                 onChangeAddIngredientForm('amountType', event.target.value)
               }
@@ -113,7 +113,7 @@ const IngredientEditForm = ({
               style={{ height: '100px' }}
               name='note'
               placeholder='Note'
-              value={addedIngredient.note}
+              value={addedIngredient.note || ''}
               onChange={(event) =>
                 onChangeAddIngredientForm('note', event.target.value)
               }
@@ -143,7 +143,7 @@ const IngredientEditForm = ({
                 type='text'
                 name='name'
                 placeholder='Name'
-                value={editedIngredient.name != null ? editedIngredient.name : ''}
+                value={editedIngredient.name  || ''}
                 onChange={(event) =>
                   onChangeEditIngredientForm('name', event.target.value)
                 }
@@ -153,7 +153,7 @@ const IngredientEditForm = ({
                 type='text'
                 name='amount'
                 placeholder='Amount'
-                value={editedIngredient.amount != null ? editedIngredient.amount : ''}
+                value={editedIngredient.amount || ''}
                 onChange={(event) =>
                   onChangeEditIngredientForm('amount', event.target.value)
                 }
@@ -163,7 +163,7 @@ const IngredientEditForm = ({
                 type='text'
                 name='amountType'
                 placeholder='Amount Type'
-                value={editedIngredient.amountType != null ? editedIngredient.amountType : ''}
+                value={editedIngredient.amountType || ''}
                 onChange={(event) =>
                   onChangeEditIngredientForm('amountType', event.target.value)
                 }
@@ -175,7 +175,7 @@ const IngredientEditForm = ({
                 style={{ height: '100px' }}
                 name='note'
                 placeholder='Note'
-                value={editedIngredient.note != null ? editedIngredient.note : ''}
+                value={editedIngredient.note || ''}
                 onChange={(event) =>
                   onChangeEditIngredientForm('note', event.target.value)
                 }

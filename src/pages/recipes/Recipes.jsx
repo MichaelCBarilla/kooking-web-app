@@ -1,13 +1,15 @@
 import './Recipes.css';
 
 import {Col, Row, Container, Button} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import RecipeCard from '../components/RecipeCard';
+import RecipeCard from '../../components/recipes/RecipeCard';
+import { selectRecipes } from '../../redux/reducers/recipesSlice';
 
-import useRecipes from '../../hooks/useRecipes';
 
 const Recipes = () => {
-  const { recipes } = useRecipes();
+  const recipes = useSelector(selectRecipes);
 
   return (
     <Container>
@@ -16,7 +18,10 @@ const Recipes = () => {
           <h2>Recipes</h2>
         </Col>
         <Col xs='auto'>
-          <Button variant='primary'>Add Recipe</Button>
+          <Link to="/recipes/add">
+            <Button variant='primary'>Add Recipe</Button>
+          </Link>
+          
         </Col>
       </Row>
       <Row>
@@ -28,7 +33,7 @@ const Recipes = () => {
             <RecipeCard
               title={recipe.title}
               imgUrl={recipe.imgUrl}
-              rid={recipe.id.toString()}
+              rid={recipe.id}
               description={recipe.description}
             />
           </Col>
