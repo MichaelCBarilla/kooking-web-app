@@ -16,6 +16,7 @@ import Feed from './feed/pages/Feed';
 import Recipes from './recipes/pages/Recipes';
 import Recipe from './recipes/pages/Recipe';
 import RecipeEdit from './recipes/pages/RecipeEdit';
+import RecipeAdd from './recipes/pages/RecipeAdd';
 
 
 const router = createBrowserRouter([
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
       {
         path: "/recipes",
         element: <Recipes />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/recipes/add",
+        element: <RecipeAdd />,
         errorElement: <ErrorPage />,
       },
       {
