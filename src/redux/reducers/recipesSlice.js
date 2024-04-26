@@ -27,4 +27,6 @@ const recipesSlice = createSlice({
 
 export const { addRecipe, editRecipe, deleteRecipe } = recipesSlice.actions;
 
+export const selectRecipes = (state) => state.recipesState.recipes;
+
 export default recipesSlice.reducer;

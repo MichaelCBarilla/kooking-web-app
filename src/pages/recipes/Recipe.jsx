@@ -3,19 +3,18 @@ import './Recipe.css'
 
 import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import RecipeSummary from '../../components/recipes/RecipeSummary';
 import RecipeIngredients from '../../components/recipes/RecipeIngredients';
 import RecipeDirections from '../../components/recipes/RecipeDirections';
 
-import useRecipes from '../../hooks/useRecipes';
+import { selectRecipes } from '../../redux/reducers/recipesSlice';
 
 const Recipe = () => {
-  const { recipes } = useRecipes();
+  const recipes = useSelector(selectRecipes);
   const rid = useParams().rid;
-  console.log(recipes);
   const recipe = recipes.find((recipe) => recipe.id === rid);
-  console.log(recipe);
   
   return (
     <Container id='recipeContainer'>
