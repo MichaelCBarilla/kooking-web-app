@@ -28,15 +28,15 @@ const GeneralRecipeEditForm = ({recipe, onChangeGeneralRecipeForm}) => {
       </Form.Group>
       <Form.Group className="mb-3" controlId="recipeServings">
         <Form.Label>Servings</Form.Label>
-        <Form.Control type="number" placeholder="Enter the amount of servings" value={recipe.servings} onChange={(event) => onChangeGeneralRecipeForm('servings', event.target.value)} />
+        <Form.Control type="number" placeholder="Enter the amount of servings" value={recipe.servings || ''} onChange={(event) => onChangeGeneralRecipeForm('servings', event.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="recipeCaloriesPerServing">
         <Form.Label>Calories per Serving</Form.Label>
-        <Form.Control type="number" placeholder="Enter the amount of Calories in a Serving" value={recipe.caloriesPerServing} onChange={(event) => onChangeGeneralRecipeForm('caloriesPerServing', event.target.value)} />
+        <Form.Control type="number" placeholder="Enter the amount of Calories in a Serving" value={recipe.caloriesPerServing || ''} onChange={(event) => onChangeGeneralRecipeForm('caloriesPerServing', event.target.value)} />
       </Form.Group>
       <Form.Group className="mb-3" controlId="recipeTotalMinutes">
         <Form.Label>Total Minutes</Form.Label>
-        <Form.Control type="number" placeholder="Enter the amount of minutes to complete the recipe" value={recipe.totalMinutes} onChange={(event) => onChangeGeneralRecipeForm('totalMinutes', event.target.value)} />
+        <Form.Control type="number" placeholder="Enter the amount of minutes to complete the recipe" value={recipe.totalMinutes || ''} onChange={(event) => onChangeGeneralRecipeForm('totalMinutes', event.target.value)} />
       </Form.Group>
     </Row>
   );

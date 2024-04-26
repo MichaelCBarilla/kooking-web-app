@@ -97,7 +97,7 @@ const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDel
               min={1}
               max={directions.length + 1}
               placeholder='Order'
-              value={addedDirection.order}
+              value={addedDirection.order || ''}
               onChange={(event) =>
                 onChangeAddDirectionForm('order', event.target.value)
               }
