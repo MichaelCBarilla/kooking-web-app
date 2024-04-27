@@ -1,10 +1,10 @@
 import { Col, Form, Row } from 'react-bootstrap';
-import './GeneralRecipeEditForm.css'
+import './GeneralRecipeForm.css'
 
 import PropTypes from 'prop-types';
 
 
-const GeneralRecipeEditForm = ({recipe, onChangeGeneralRecipeForm}) => {
+const GeneralRecipeForm = ({recipe, onChangeGeneralRecipeForm}) => {
 
   
   return (
@@ -42,10 +42,10 @@ const GeneralRecipeEditForm = ({recipe, onChangeGeneralRecipeForm}) => {
   );
 }
 
-GeneralRecipeEditForm.propTypes = {
+GeneralRecipeForm.propTypes = {
   recipe: PropTypes.object.isRequired,
   onChangeGeneralRecipeForm: PropTypes.func.isRequired,
 };
 
 
-export default GeneralRecipeEditForm;
+export default GeneralRecipeForm;

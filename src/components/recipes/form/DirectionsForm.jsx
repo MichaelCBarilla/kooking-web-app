@@ -1,11 +1,11 @@
-import './DirectionsEditForm.css';
+import './DirectionsForm.css';
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import DirectionsList from '../DirectionsList';
 
-const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDeleteDirection }) => {
+const DirectionsForm = ({ directions, onAddDirection, onEditDirection, onDeleteDirection }) => {
   const [addedDirection, setAddedDirection] = useState({
     order: '',
     directionText: '',
@@ -164,11 +164,11 @@ const DirectionsEditForm = ({ directions, onAddDirection, onEditDirection, onDel
   );
 };
 
-DirectionsEditForm.propTypes = {
+DirectionsForm.propTypes = {
   directions: PropTypes.array.isRequired,
   onAddDirection: PropTypes.func.isRequired,
   onEditDirection: PropTypes.func.isRequired,
   onDeleteDirection: PropTypes.func.isRequired,
 };
 
-export default DirectionsEditForm;
+export default DirectionsForm;

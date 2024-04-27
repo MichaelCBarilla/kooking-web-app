@@ -1,4 +1,4 @@
-import './IngredientEditForm.css';
+import './IngredientForm.css';
 
 import { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 
 import IngredientList from '../IngredientList';
 
-const IngredientEditForm = ({
+const IngredientForm = ({
   ingredients,
   onAddIngredient,
   onEditIngredient,
@@ -200,11 +200,11 @@ const IngredientEditForm = ({
   );
 };
 
-IngredientEditForm.propTypes = {
+IngredientForm.propTypes = {
   ingredients: PropTypes.array.isRequired,
   onAddIngredient: PropTypes.func.isRequired,
   onEditIngredient: PropTypes.func.isRequired,
   onDeleteIngredient: PropTypes.func.isRequired,
 };
 
-export default IngredientEditForm;
+export default IngredientForm;

@@ -6,9 +6,9 @@ import { Container, Form, Row, Button, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 
-import GeneralRecipeEditForm from '../../components/recipes/edit/GeneralRecipeEditForm';
-import IngredientEditForm from '../../components/recipes/edit/IngredientEditForm';
-import DirectionsEditForm from '../../components/recipes/edit/DirectionsEditForm';
+import GeneralRecipeForm from '../../components/recipes/form/GeneralRecipeForm';
+import IngredientForm from '../../components/recipes/form/IngredientForm';
+import DirectionsForm from '../../components/recipes/form/DirectionsForm';
 
 import { editRecipe, selectRecipes } from '../../redux/reducers/recipesSlice';
 
@@ -132,17 +132,17 @@ const RecipeEdit = () => {
       <Row className='mt-2'>
         <Col>
           <Form>
-            <GeneralRecipeEditForm
+            <GeneralRecipeForm
               recipe={recipe}
               onChangeGeneralRecipeForm={onChangeGeneralRecipeForm}
             />
-            <IngredientEditForm
+            <IngredientForm
               ingredients={recipe.ingredients}
               onAddIngredient={onAddIngredient}
               onEditIngredient={onEditIngredient}
               onDeleteIngredient={onDeleteIngredient}
             />
-            <DirectionsEditForm
+            <DirectionsForm
               directions={recipe.directions}
               onAddDirection={onAddDirection}
               onEditDirection={onEditDirection}
