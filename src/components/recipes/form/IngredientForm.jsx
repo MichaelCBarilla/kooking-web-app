@@ -14,8 +14,10 @@ const IngredientForm = ({
 }) => {
   const [addedIngredient, setAddedIngredient] = useState({
     name: '',
-    amount: '',
-    amountType: '',
+    ingredientAmount: {
+      amount: '',
+      amountType: '',
+    },
     note: '',
   });
   const [editedIngredient, setEditedIngredient] = useState(null);
@@ -31,26 +33,63 @@ const IngredientForm = ({
     const newIngredient = {
       ...addedIngredient,
     };
-    newIngredient[valueType] = newValue;
+    if (valueType === 'amount' || valueType === 'amountType') {
+      newIngredient.ingredientAmount[valueType] = newValue;
+    } else {
+      newIngredient[valueType] = newValue;
+    }
     setAddedIngredient(() => newIngredient);
   };
 
+  const isIngredientInvalid = (ingredient) => {
+    if (ingredient.name.trim() === '') {
+      return true;
+    }
+    if (ingredient.note.trim() === '') {
+      delete ingredient.note;
+    }
+    if (ingredient.ingredientAmount.amount.trim() !== '' && ingredient.ingredientAmount.amountType.trim() !== '') {
+      const regex = /^[-+]?[0-9]*\.?[0-9]+(?:\/[0-9]+)?$/;
+      if (ingredient.ingredientAmount.amount && !regex.test(ingredient.ingredientAmount.amount)) {
+        return true;
+      }
+    } else {    
+      if (ingredient.ingredientAmount.amount.trim() === '' && ingredient.ingredientAmount.amountType.trim() === '') {
+        delete ingredient.ingredientAmount;
+        return false;
+      }
+      return true;
+    }
+  }
+
   const onAddIngredientCallback = (event) => {
     event.preventDefault();
+    if (isIngredientInvalid(addedIngredient)) {
+      console.log('ingredient invalid');
+      return;
+    }
     onAddIngredient(addedIngredient);
-    setAddedIngredient({ name: '', amount: '', amountType: '', note: '' });
+    setAddedIngredient({ name: '', ingredientAmount: {amount: '', amountType: '',}, note: '' });
   };
 
   const onChangeEditIngredientForm = (valueType, newValue) => {
     const newIngredient = {
       ...editedIngredient,
     };
-    newIngredient[valueType] = newValue;
+    if (valueType === 'amount' || valueType === 'amountType') {
+      newIngredient.ingredientAmount[valueType] = newValue;
+    } else {
+      newIngredient[valueType] = newValue;
+    }
     setEditedIngredient(() => newIngredient);
   };
 
   const onEditIngredientCallback = (event) => {
     event.preventDefault();
+    if (isIngredientInvalid(editedIngredient)) {
+      console.log('ingredient invalid');
+      return;
+    }
     onEditIngredient(editedIngredient, editedIngredientIndex);
     setEditedIngredientIndex(null);
     setEditedIngredient(null);
@@ -89,7 +128,7 @@ const IngredientForm = ({
               type='text'
               name='amount'
               placeholder='Amount'
-              value={addedIngredient.amount || ''}
+              value={addedIngredient.ingredientAmount.amount || ''}
               onChange={(event) =>
                 onChangeAddIngredientForm('amount', event.target.value)
               }
@@ -100,7 +139,7 @@ const IngredientForm = ({
               type='text'
               name='amountType'
               placeholder='Amount Type'
-              value={addedIngredient.amountType || ''}
+              value={addedIngredient.ingredientAmount.amountType || ''}
               onChange={(event) =>
                 onChangeAddIngredientForm('amountType', event.target.value)
               }
@@ -153,7 +192,7 @@ const IngredientForm = ({
                 type='text'
                 name='amount'
                 placeholder='Amount'
-                value={editedIngredient.amount || ''}
+                value={editedIngredient.ingredientAmount.amount || ''}
                 onChange={(event) =>
                   onChangeEditIngredientForm('amount', event.target.value)
                 }
@@ -163,7 +202,7 @@ const IngredientForm = ({
                 type='text'
                 name='amountType'
                 placeholder='Amount Type'
-                value={editedIngredient.amountType || ''}
+                value={editedIngredient.ingredientAmount.amountType || ''}
                 onChange={(event) =>
                   onChangeEditIngredientForm('amountType', event.target.value)
                 }

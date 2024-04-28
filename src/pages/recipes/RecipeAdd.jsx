@@ -2,7 +2,6 @@ import './RecipeAdd.css';
 
 import { useState } from 'react';
 import { Container, Form, Row, Button, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 
@@ -15,7 +14,6 @@ import { addRecipe } from '../../redux/reducers/recipesSlice';
 
 const RecipeAdd = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [recipe, setRecipe] = useState({ingredients: [], directions: []});
 
@@ -23,18 +21,65 @@ const RecipeAdd = () => {
     const newRecipe = {
       ...recipe,
     };
-    if (valueType === 'ingredientsLength' || valueType == 'servings' || valueType == 'caloriesPerServing' || valueType == 'totalMinutes') {
-      newRecipe[valueType] = +newValue;
-    } else {
-      newRecipe[valueType] = newValue;
-    }
+    newRecipe[valueType] = newValue;
     setRecipe(() => newRecipe);
   };
 
+  const isRecipeInvalid = () => {
+    if (!recipe.title || recipe.title.trim() === '') {
+      return true;
+    }
+    if (recipe.servings?.trim() && isNaN(recipe.servings) && recipe.servings <= 0) {
+      return true;
+    }
+    if (recipe.caloriesPerServings?.trim() && isNaN(recipe.caloriesPerServings) && recipe.caloriesPerServings <= 0) {
+      return true;
+    }
+    if (recipe.totalMinutes?.trim() && isNaN(recipe.totalMinutes) && recipe.totalMinutes <= 0) {
+      return true;
+    }
+    if (recipe.ingredients.length == 0) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const constructRecipeModel = () => {
+    console.log(recipe.ingredients);
+    const ingredientsModel = [];
+    for (let ingredient of recipe.ingredients) {
+      const ingredientModel = {
+        ...ingredient,
+      }
+      if (ingredient.ingredientAmount) {
+        ingredientModel.ingredientAmount = ingredient.ingredientAmount;
+      }
+      ingredientsModel.push(ingredientModel);
+    }
+    const recipeModel = {
+      ...recipe,
+      servings: recipe.servings ? parseInt(recipe.servings) : undefined,
+      caloriesPerServing: recipe.caloriesPerServing ? parseInt(recipe.caloriesPerServing) : undefined,
+      totalMinutes: recipe.totalMinutes ? parseInt(recipe.totalMinutes) : undefined,
+      rating: recipe.rating ? parseInt(recipe.rating) : undefined,
+      ingredients: ingredientsModel,
+    };
+    return recipeModel;
+  }
+
   const onAddRecipe = (event) => {
     event.preventDefault();
-    dispatch(addRecipe(recipe));
-    navigate(`/recipes/${recipe.id}`);
+
+    if (isRecipeInvalid()) {
+      console.log('Recipe is invalid.');
+      return;
+    }
+
+    const recipeModel = constructRecipeModel();
+    console.log(recipeModel);
+
+    dispatch(addRecipe(recipeModel));
   };
 
   const onAddIngredient = (addedIngredient) => {

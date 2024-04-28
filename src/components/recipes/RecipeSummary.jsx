@@ -97,11 +97,11 @@ RecipeSummary.propTypes = {
   rid: PropTypes.string.isRequired,
   imgUrl: PropTypes.string,
   creator: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   rating: PropTypes.number,
   ingredientsLength: PropTypes.number.isRequired,
-  servings: PropTypes.number.isRequired,
-  caloriesPerServing: PropTypes.number.isRequired,
+  servings: PropTypes.number,
+  caloriesPerServing: PropTypes.number,
   totalMinutes: PropTypes.number.isRequired,
 };
 

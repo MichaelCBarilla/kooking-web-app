@@ -9,26 +9,26 @@ const IngredientList = ({
   onClickIngredient,
   onDeleteIngredient,
 }) => {
-  const getAmountType = (ingredient) => {
-    if (
-      Object.prototype.hasOwnProperty.call(ingredient, 'amount') &&
-      Object.prototype.hasOwnProperty.call(ingredient, 'amountType')
-    ) {
-      return ingredient.amount > 1
-        ? `${ingredient.amountType}s`
-        : ingredient.amountType;
-    } else {
-      return '';
-    }
-  };
+  // const getAmountType = (ingredient) => {
+  //   if (
+  //     Object.prototype.hasOwnProperty.call(ingredient, 'amount') &&
+  //     Object.prototype.hasOwnProperty.call(ingredient, 'amountType')
+  //   ) {
+  //     return ingredient.amount > 1
+  //       ? `${ingredient.amountType}s`
+  //       : ingredient.amountType;
+  //   } else {
+  //     return '';
+  //   }
+  // };
 
-  const getAmount = (ingredient) => {
-    if (Object.prototype.hasOwnProperty.call(ingredient, 'amount')) {
-      return ingredient.amount;
-    } else {
-      return '';
-    }
-  };
+  // const getAmount = (ingredient) => {
+  //   if (Object.prototype.hasOwnProperty.call(ingredient, 'amount')) {
+  //     return ingredient.amount;
+  //   } else {
+  //     return '';
+  //   }
+  // };
 
   return (
     <Row>
@@ -44,8 +44,8 @@ const IngredientList = ({
                       ? (event) => onClickIngredient(event, ingredient, i)
                       : null
                   }>
-                  {ingredient.name} {getAmount(ingredient)}{' '}
-                  {getAmountType(ingredient)}
+                  {ingredient.name} {ingredient.ingredientAmount?.amount || ''}{' '}
+                  {ingredient.ingredientAmount?.amountType || ''}
                 </ListGroup.Item>
               </Col>
               <Col className='px-0' xs='auto'>
