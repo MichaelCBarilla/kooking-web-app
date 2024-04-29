@@ -45,6 +45,15 @@ const RecipeAdd = () => {
     return false;
   };
 
+  const convertAmount = (amountStr) => {
+    if (amountStr.includes('/')) {
+      const [numerator, denominator] = amountStr.split('/').map(Number);
+      return numerator / denominator;
+    } else {
+      return parseFloat(amountStr);
+    }
+  };
+
   const constructRecipeModel = () => {
     console.log(recipe.ingredients);
     const ingredientsModel = [];
@@ -53,7 +62,10 @@ const RecipeAdd = () => {
         ...ingredient,
       }
       if (ingredient.ingredientAmount) {
-        ingredientModel.ingredientAmount = ingredient.ingredientAmount;
+        ingredientModel.ingredientAmount = {
+          amount: convertAmount(ingredient.ingredientAmount.amount),
+          amountType: ingredient.ingredientAmount.amountType,
+        };
       }
       ingredientsModel.push(ingredientModel);
     }
