@@ -55,7 +55,6 @@ const RecipeAdd = () => {
   };
 
   const constructRecipeModel = () => {
-    console.log(recipe.ingredients);
     const ingredientsModel = [];
     for (let ingredient of recipe.ingredients) {
       const ingredientModel = {

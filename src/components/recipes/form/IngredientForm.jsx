@@ -30,11 +30,15 @@ const IngredientForm = ({
   };
 
   const onChangeAddIngredientForm = (valueType, newValue) => {
-    const newIngredient = {
+    let newIngredient = {
       ...addedIngredient,
     };
     if (valueType === 'amount' || valueType === 'amountType') {
-      newIngredient.ingredientAmount[valueType] = newValue;
+      let newIngredientAmount = {
+        ...addedIngredient.ingredientAmount,
+      }
+      newIngredientAmount[valueType] = newValue;
+      newIngredient.ingredientAmount = newIngredientAmount;
     } else {
       newIngredient[valueType] = newValue;
     }
@@ -45,7 +49,7 @@ const IngredientForm = ({
     if (ingredient.name.trim() === '') {
       return true;
     }
-    if (ingredient.note.trim() === '') {
+    if (ingredient.note?.trim() === '') {
       delete ingredient.note;
     }
     if (ingredient.ingredientAmount.amount.trim() !== '' && ingredient.ingredientAmount.amountType.trim() !== '') {
@@ -73,11 +77,15 @@ const IngredientForm = ({
   };
 
   const onChangeEditIngredientForm = (valueType, newValue) => {
-    const newIngredient = {
+    let newIngredient = {
       ...editedIngredient,
     };
     if (valueType === 'amount' || valueType === 'amountType') {
-      newIngredient.ingredientAmount[valueType] = newValue;
+      let newIngredientAmount = {
+        ...editedIngredient.ingredientAmount,
+      }
+      newIngredientAmount[valueType] = newValue;
+      newIngredient.ingredientAmount = newIngredientAmount;
     } else {
       newIngredient[valueType] = newValue;
     }

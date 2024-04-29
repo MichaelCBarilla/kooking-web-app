@@ -1,7 +1,7 @@
 import './RecipeEdit.css';
 
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Container, Form, Row, Button, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
@@ -15,7 +15,6 @@ import { editRecipe, selectRecipes } from '../../redux/reducers/recipesSlice';
 const RecipeEdit = () => {
   const recipes = useSelector(selectRecipes);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const rid = useParams().rid;
 
   const [recipe, setRecipe] = useState(recipes.find((recipe) => recipe.id == rid));
@@ -32,10 +31,72 @@ const RecipeEdit = () => {
     setRecipe(() => newRecipe);
   };
 
+  const isRecipeInvalid = () => {
+    if (!recipe.title || recipe.title.trim() === '') {
+      return true;
+    }
+    if (recipe.servings?.trim() && isNaN(recipe.servings) && recipe.servings <= 0) {
+      return true;
+    }
+    if (recipe.caloriesPerServings?.trim() && isNaN(recipe.caloriesPerServings) && recipe.caloriesPerServings <= 0) {
+      return true;
+    }
+    if (recipe.totalMinutes?.trim() && isNaN(recipe.totalMinutes) && recipe.totalMinutes <= 0) {
+      return true;
+    }
+    if (recipe.ingredients.length == 0) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const convertAmount = (amountStr) => {
+    if (amountStr.includes('/')) {
+      const [numerator, denominator] = amountStr.split('/').map(Number);
+      return numerator / denominator;
+    } else {
+      return parseFloat(amountStr);
+    }
+  };
+
+  const constructRecipeModel = () => {
+    const ingredientsModel = [];
+    for (let ingredient of recipe.ingredients) {
+      const ingredientModel = {
+        ...ingredient,
+      }
+      if (ingredient.ingredientAmount) {
+        ingredientModel.ingredientAmount = {
+          amount: convertAmount(ingredient.ingredientAmount.amount),
+          amountType: ingredient.ingredientAmount.amountType,
+        };
+      }
+      ingredientsModel.push(ingredientModel);
+    }
+    const recipeModel = {
+      ...recipe,
+      servings: recipe.servings ? parseInt(recipe.servings) : undefined,
+      caloriesPerServing: recipe.caloriesPerServing ? parseInt(recipe.caloriesPerServing) : undefined,
+      totalMinutes: recipe.totalMinutes ? parseInt(recipe.totalMinutes) : undefined,
+      rating: recipe.rating ? parseInt(recipe.rating) : undefined,
+      ingredients: ingredientsModel,
+    };
+    return recipeModel;
+  }
+
   const onEditRecipe = (event) => {
     event.preventDefault();
-    dispatch(editRecipe(recipe));
-    navigate(`/recipes/${recipe.id}`)
+
+    if (isRecipeInvalid()) {
+      console.log('Recipe is invalid.');
+      return;
+    }
+
+    const recipeModel = constructRecipeModel();
+    console.log(recipeModel);
+
+    dispatch(editRecipe(recipeModel));
   };
 
   const onAddIngredient = (addedIngredient) => {
