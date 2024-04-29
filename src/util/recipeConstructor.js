@@ -12,7 +12,7 @@ const constructIngredientsModel = (ingredients) => {
     }
     ingredientsModel.push(ingredientModel);
   }
-  console.log(ingredientsModel);
+  return ingredientsModel;
 };
 
 export const constructRecipeModel = (recipe) => {

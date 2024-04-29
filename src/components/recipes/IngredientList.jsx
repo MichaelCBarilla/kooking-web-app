@@ -2,7 +2,6 @@ import './IngredientList.css';
 
 import { Row, Col, ListGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { decimalToFraction } from '../../util/converters';
 
 const IngredientList = ({
   ingredients,
@@ -25,8 +24,8 @@ const IngredientList = ({
                       ? (event) => onClickIngredient(event, ingredient, i)
                       : null
                   }>
-                  {ingredient.name} {decimalToFraction(ingredient.amount) || ''}{' '}
-                  {ingredient.amountType || ''}
+                  {ingredient.name} {ingredient.amount || ''}{' '}
+                  {ingredient.amountLabel || ''}
                 </ListGroup.Item>
               </Col>
               <Col

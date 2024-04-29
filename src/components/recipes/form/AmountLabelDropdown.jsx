@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 
-const AmountTypeDropdown = ({ onSelect }) => {
+const AmountLabelDropdown = ({ onSelect }) => {
+  const [selectedUnit, setSelectedUnit] = useState(null);
+
   const units = [
     { id: 1, fullName: "Teaspoon", abbreviation: "tsp" },
     { id: 2, fullName: "Tablespoon", abbreviation: "tbsp" },
@@ -18,15 +21,21 @@ const AmountTypeDropdown = ({ onSelect }) => {
     { id: 13, fullName: "Pound", abbreviation: "lb" }
   ];
 
+  const handleSelect = (unitId) => {
+    const unit = units.find(u => u.id === parseInt(unitId));
+    setSelectedUnit(() => unit);
+    onSelect(unit.abbreviation);
+  };
+
   return (
-    <Dropdown onSelect={onSelect}>
+    <Dropdown onSelect={handleSelect}>
       <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Select Cooking Unit
+        {selectedUnit ? `${selectedUnit.fullName} (${selectedUnit.abbreviation})` : "Select Cooking Unit"}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
         {units.map((unit) => (
-          <Dropdown.Item key={unit.id} eventKey={unit.fullName}>
+          <Dropdown.Item key={unit.id} eventKey={unit.id}>
             {unit.fullName} ({unit.abbreviation})
           </Dropdown.Item>
         ))}
@@ -35,8 +44,8 @@ const AmountTypeDropdown = ({ onSelect }) => {
   );
 };
 
-AmountTypeDropdown.propTypes = {
-  onSelect: PropTypes.array.isRequired,
+AmountLabelDropdown.propTypes = {
+  onSelect: PropTypes.func.isRequired,
 };
 
-export default AmountTypeDropdown;
+export default AmountLabelDropdown;

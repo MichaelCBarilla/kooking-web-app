@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 import IngredientList from '../IngredientList';
+import AmountLabelDropdown from './AmountLabelDropdown';
 import { isIngredientInvalid } from '../../../util/recipeValidation';
-import { decimalToFraction } from '../../../util/converters';
 
 const IngredientForm = ({
   ingredients,
@@ -17,7 +17,7 @@ const IngredientForm = ({
   const [addedIngredient, setAddedIngredient] = useState({
     name: '',
     amount: '',
-    amountType: '',
+    amountLabel: '',
     note: '',
   });
   const [editedIngredient, setEditedIngredient] = useState(null);
@@ -27,8 +27,7 @@ const IngredientForm = ({
     event.preventDefault();
     const clickedIngredient = {
       ...ingredient,
-      amount: decimalToFraction(ingredient.amount),
-    }
+    };
     setEditedIngredient(clickedIngredient);
     setEditedIngredientIndex(index);
   };
@@ -51,7 +50,7 @@ const IngredientForm = ({
     setAddedIngredient({
       name: '',
       amount: '',
-      amountType: '',
+      amountLabel: '',
       note: '',
     });
   };
@@ -105,7 +104,7 @@ const IngredientForm = ({
           </Col>
           <Col>
             <Form.Control
-              type='text'
+              type='number'
               name='amount'
               placeholder='Amount'
               value={addedIngredient.amount || ''}
@@ -115,15 +114,10 @@ const IngredientForm = ({
             />
           </Col>
           <Col>
-            <Form.Control
-              type='text'
-              name='amountType'
-              placeholder='Amount Type'
-              value={addedIngredient.amountType || ''}
-              onChange={(event) =>
-                onChangeAddIngredientForm('amountType', event.target.value)
-              }
-            />
+            <AmountLabelDropdown
+              onSelect={(value) =>
+                onChangeAddIngredientForm('amountLabel', value)
+              }></AmountLabelDropdown>
           </Col>
           <Col>
             <Form.Control
@@ -174,16 +168,10 @@ const IngredientForm = ({
                   onChangeEditIngredientForm('amount', event.target.value)
                 }
               />
-              <Form.Control
-                className='mb-3'
-                type='text'
-                name='amountType'
-                placeholder='Amount Type'
-                value={editedIngredient.amountType || ''}
-                onChange={(event) =>
-                  onChangeEditIngredientForm('amountType', event.target.value)
-                }
-              />
+              <AmountLabelDropdown
+                onSelect={(value) =>
+                  onChangeAddIngredientForm('amountLabel', value)
+                }></AmountLabelDropdown>
               <Form.Control
                 className='mb-3'
                 type='text'

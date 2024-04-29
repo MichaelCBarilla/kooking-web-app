@@ -13,11 +13,24 @@ export const convertAmountToDecimal = (amountStr) => {
   }
 };
 
+// const isDecimalOrFraction = (amount) => {
+//   const regex = /^[-+]?[0-9]*\.?[0-9]+(?:\/[0-9]+)?$/;
+//   if (!regex.test(amount)) {
+//     return true;
+//   }
+// }
+
 export function decimalToFraction(decimal) {
   try {
     const fraction = math.fraction(decimal);
     const fractionString = math.format(fraction);
-    return fractionString;
+
+    if (fraction.n % fraction.d === 0) {
+      return fraction.n / fraction.d; 
+    } else {
+      return fractionString; 
+    }
+
   } catch (error) {
     return null;
   }

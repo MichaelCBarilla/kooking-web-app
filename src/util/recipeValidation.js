@@ -1,3 +1,5 @@
+import { isInteger } from "mathjs";
+
 export const isRecipeInvalid = (recipe) => {
   if (!recipe.title || recipe.title.trim() === '') {
     return true;
@@ -37,22 +39,14 @@ export const isIngredientInvalid = (ingredient) => {
   if (!ingredient.name || ingredient.name.trim() === '') {
     return true;
   }
-  if (ingredient.amount.trim() !== '') {
-    const regex = /^[-+]?[0-9]*\.?[0-9]+(?:\/[0-9]+)?$/;
-    if (!regex.test(ingredient.amount)) {
-      return true;
-    }
+  if (!ingredient.amount || ingredient.amount?.trim() === '') {
+    return true;
   }
-  if (ingredient.amount.trim() === '' && ingredient.amountType.trim() !== '') {
+  if (!ingredient.amountLabel || ingredient.amountLabel?.trim() === '') {
     return true;
   }
 
   return false;
-}
-
-const isInteger = (str) => {
-  const integerPattern = /^-?\d+$/;
-  return integerPattern.test(str);
 }
 
 export const isDirectionInvalid = (direction, directionsLength) => {
