@@ -14,26 +14,20 @@ export const RECIPES = [
       {
         id: '1',
         name: 'Cheese',
-        ingredientAmount: {
-          amount: 0.5,
-          amountType: 'Cup',
-        },
+        amount: 0.5,
+        amountType: 'Cup',
       },
       {
         id: '2',
         name: 'Milk',
-        ingredientAmount: {
-          amount: 2,
-          amountType: 'Cup',
-        },
+        amount: 2,
+        amountType: 'Cup',
       },
       {
         id: '3',
         name: 'Pasta',
-        ingredientAmount: {
-          amount: 1,
-          amountType: 'Pound',
-        },
+        amount: 1,
+        amountType: 'Pound',
         note: 'I use shells',
       },
     ],
@@ -64,26 +58,20 @@ export const RECIPES = [
       {
         id: '1',
         name: 'Cooked Beets',
-        ingredientAmount: {
-          amount: 4,
-        },
+        amount: 4,
         note: 'I use precooked packages',
       },
       {
         id: '2',
         name: 'Pineapple',
-        ingredientAmount: {
-          amount: 0.5,
-        },
+        amount: 0.5,
         note: 'I use 1 can of pineapple slices in natural juices',
       },
       {
         id: '3',
         name: 'Strawberries',
-        ingredientAmount: {
-          amount: 8,
-          package: 'oz'
-        },
+        amount: 8,
+        amountType: 'oz',
       },
       {
         id: '4',
@@ -93,10 +81,8 @@ export const RECIPES = [
       {
         id: '5',
         name: 'Flax Seed Meal',
-        ingredientAmount: {
-          amount: 1,
-          package: 'tbsp'
-        },
+        amount: 1,
+        amountType: 'tbsp',
       },
     ],
     directions: [
@@ -129,26 +115,20 @@ export const RECIPES = [
       {
         id: '1',
         name: 'Cheese',
-        ingredientAmount: {
-          amount: 0.5,
-          amountType: 'Cup',
-        },
+        amount: 0.5,
+        amountType: 'Cup',
       },
       {
         id: '2',
         name: 'Milk',
-        ingredientAmount: {
-          amount: 2,
-          amountType: 'Cup',
-        },
+        amount: 2,
+        amountType: 'Cup',
       },
       {
         id: '3',
         name: 'Pasta',
-        ingredientAmount: {
-          amount: 1,
-          amountType: 'Pound',
-        },
+        amount: 1,
+        amountType: 'Pound',
         note: 'I use shells',
       },
     ],
@@ -179,26 +159,20 @@ export const RECIPES = [
       {
         id: '1',
         name: 'Cheese',
-        ingredientAmount: {
-          amount: 0.5,
-          amountType: 'Cup',
-        },
+        amount: 0.5,
+        amountType: 'Cup',
       },
       {
         id: '2',
         name: 'Milk',
-        ingredientAmount: {
-          amount: 2,
-          amountType: 'Cup',
-        },
+        amount: 2,
+        amountType: 'Cup',
       },
       {
         id: '3',
         name: 'Pasta',
-        ingredientAmount: {
-          amount: 1,
-          amountType: 'Pound',
-        },
+        amount: 1,
+        amountType: 'Pound',
         note: 'I use shells',
       },
     ],
@@ -229,26 +203,20 @@ export const RECIPES = [
       {
         id: '1',
         name: 'Cheese',
-        ingredientAmount: {
-          amount: 0.5,
-          amountType: 'Cup',
-        },
+        amount: 0.5,
+        amountType: 'Cup',
       },
       {
         id: '2',
         name: 'Milk',
-        ingredientAmount: {
-          amount: 2,
-          amountType: 'Cup',
-        },
+        amount: 2,
+        amountType: 'Cup',
       },
       {
         id: '3',
         name: 'Pasta',
-        ingredientAmount: {
-          amount: 1,
-          amountType: 'Pound',
-        },
+        amount: 1,
+        amountType: 'Pound',
         note: 'I use shells',
       },
     ],
@@ -279,26 +247,23 @@ export const RECIPES = [
       {
         id: '1',
         name: 'Cheese',
-        ingredientAmount: {
-          amount: 0.5,
-          amountType: 'Cup',
-        },
+
+        amount: 0.5,
+        amountType: 'Cup',
       },
       {
         id: '2',
         name: 'Milk',
-        ingredientAmount: {
-          amount: 2,
-          amountType: 'Cup',
-        },
+
+        amount: 2,
+        amountType: 'Cup',
       },
       {
         id: '3',
         name: 'Pasta',
-        ingredientAmount: {
-          amount: 1,
-          amountType: 'Pound',
-        },
+
+        amount: 1,
+        amountType: 'Pound',
         note: 'I use shells',
       },
     ],

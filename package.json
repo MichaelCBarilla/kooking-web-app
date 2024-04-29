@@ -12,6 +12,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.3",
     "bootstrap": "^5.3.3",
+    "mathjs": "^12.4.2",
     "nanoid": "^5.0.7",
     "objectmodel": "^4.4.5",
     "prop-types": "^15.8.1",

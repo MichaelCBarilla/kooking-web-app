@@ -2,6 +2,7 @@ import './IngredientList.css';
 
 import { Row, Col, ListGroup, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import { decimalToFraction } from '../../util/converters';
 
 const IngredientList = ({
   ingredients,
@@ -9,33 +10,6 @@ const IngredientList = ({
   onClickIngredient,
   onDeleteIngredient,
 }) => {
-  function decimalToFraction(decimal) {
-    if (parseInt(decimal)) {
-      return null;
-    }
-    // Function to find the greatest common divisor (GCD)
-    const gcd = (a, b) => {
-      if (b === 0) return a;
-      return gcd(b, a % b);
-    };
-
-    // Convert the decimal to a fraction
-    const tolerance = 1.0e-6;
-    let numerator = decimal;
-    let denominator = 1;
-    let error = Math.abs(decimal - Math.round(decimal));
-
-    while (error > tolerance) {
-      numerator = Math.round(decimal * denominator);
-      const divisor = gcd(numerator, denominator);
-      numerator /= divisor;
-      denominator /= divisor;
-      error = Math.abs(decimal - numerator / denominator);
-      denominator++;
-    }
-    console.log(`${numerator}/${denominator - 1}`);
-    return `${numerator}/${denominator - 1}`;
-  }
 
   return (
     <Row>
@@ -51,8 +25,8 @@ const IngredientList = ({
                       ? (event) => onClickIngredient(event, ingredient, i)
                       : null
                   }>
-                  {ingredient.name} {(decimalToFraction(ingredient.ingredientAmount?.amount) ?? ingredient.ingredientAmount?.amount) || ''}{' '}
-                  {ingredient.ingredientAmount?.amountType || ''}
+                  {ingredient.name} {decimalToFraction(ingredient.amount) || ''}{' '}
+                  {ingredient.amountType || ''}
                 </ListGroup.Item>
               </Col>
               <Col

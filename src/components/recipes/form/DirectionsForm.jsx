@@ -4,6 +4,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import DirectionsList from '../DirectionsList';
+import { isDirectionInvalid } from '../../../util/recipeValidation';
 
 const DirectionsForm = ({ directions, onAddDirection, onEditDirection, onDeleteDirection }) => {
   const [addedDirection, setAddedDirection] = useState({
@@ -30,15 +31,14 @@ const DirectionsForm = ({ directions, onAddDirection, onEditDirection, onDeleteD
   const onAddDirectionCallback = (event) => {
     event.preventDefault();
 
-    const orderAsNumber = parseFloat(addedDirection.order);
-    if (!isNaN(orderAsNumber) && orderAsNumber >= 1 && orderAsNumber <= directions.length + 1) {
-        onAddDirection({...addedDirection, order: orderAsNumber});
-        setAddedDirection({ id: '', order: '', directionText: '' });
-    } else {
-      console.log('Invalid order');
+    if (isDirectionInvalid(addedDirection, directions.length)) {
+      console.log('invalid direction');
+      return;
     }
-
-
+    
+    const orderAsNumber = parseFloat(addedDirection.order);
+    onAddDirection({...addedDirection, order: orderAsNumber});
+    setAddedDirection({ order: '', directionText: '' });
   };
 
   const onChangeEditDirectionForm = (valueType, newValue) => {
@@ -52,14 +52,15 @@ const DirectionsForm = ({ directions, onAddDirection, onEditDirection, onDeleteD
   const onEditDirectionCallback = (event) => {
     event.preventDefault();
     
-    const orderAsNumber = parseFloat(editedDirection.order);
-    if (!isNaN(orderAsNumber) && orderAsNumber >= 1 && orderAsNumber <= directions.length) {
-        onEditDirection({...editedDirection, order: orderAsNumber}, editedDirectionIndex);
-        setEditedDirectionIndex(null);
-        setEditedDirection(null);
-    } else {
-      console.log('Invalid order');
+    if (isDirectionInvalid(editedDirection)) {
+      console.log('invalid direction');
+      return;
     }
+
+    const orderAsNumber = parseFloat(editedDirection.order);
+    onEditDirection({...editedDirection, order: orderAsNumber}, editedDirectionIndex);
+    setEditedDirectionIndex(null);
+    setEditedDirection(null);
   };
 
   const onDeleteDirectionCallback = (event, index) => {

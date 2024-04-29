@@ -9,8 +9,10 @@ import GeneralRecipeForm from '../../components/recipes/form/GeneralRecipeForm';
 import IngredientForm from '../../components/recipes/form/IngredientForm';
 import DirectionsForm from '../../components/recipes/form/DirectionsForm';
 
-
 import { addRecipe } from '../../redux/reducers/recipesSlice';
+
+import { isRecipeInvalid } from '../../util/recipeValidation';
+import { constructRecipeModel } from '../../util/recipeConstructor';
 
 const RecipeAdd = () => {
   const dispatch = useDispatch();
@@ -25,69 +27,15 @@ const RecipeAdd = () => {
     setRecipe(() => newRecipe);
   };
 
-  const isRecipeInvalid = () => {
-    if (!recipe.title || recipe.title.trim() === '') {
-      return true;
-    }
-    if (recipe.servings?.trim() && isNaN(recipe.servings) && recipe.servings <= 0) {
-      return true;
-    }
-    if (recipe.caloriesPerServings?.trim() && isNaN(recipe.caloriesPerServings) && recipe.caloriesPerServings <= 0) {
-      return true;
-    }
-    if (recipe.totalMinutes?.trim() && isNaN(recipe.totalMinutes) && recipe.totalMinutes <= 0) {
-      return true;
-    }
-    if (recipe.ingredients.length == 0) {
-      return true;
-    }
-
-    return false;
-  };
-
-  const convertAmount = (amountStr) => {
-    if (amountStr.includes('/')) {
-      const [numerator, denominator] = amountStr.split('/').map(Number);
-      return numerator / denominator;
-    } else {
-      return parseFloat(amountStr);
-    }
-  };
-
-  const constructRecipeModel = () => {
-    const ingredientsModel = [];
-    for (let ingredient of recipe.ingredients) {
-      const ingredientModel = {
-        ...ingredient,
-      }
-      if (ingredient.ingredientAmount) {
-        ingredientModel.ingredientAmount = {
-          amount: convertAmount(ingredient.ingredientAmount.amount),
-          amountType: ingredient.ingredientAmount.amountType,
-        };
-      }
-      ingredientsModel.push(ingredientModel);
-    }
-    const recipeModel = {
-      ...recipe,
-      servings: recipe.servings ? parseInt(recipe.servings) : undefined,
-      caloriesPerServing: recipe.caloriesPerServing ? parseInt(recipe.caloriesPerServing) : undefined,
-      totalMinutes: recipe.totalMinutes ? parseInt(recipe.totalMinutes) : undefined,
-      rating: recipe.rating ? parseInt(recipe.rating) : undefined,
-      ingredients: ingredientsModel,
-    };
-    return recipeModel;
-  }
-
   const onAddRecipe = (event) => {
     event.preventDefault();
 
-    if (isRecipeInvalid()) {
+    if (isRecipeInvalid(recipe)) {
       console.log('Recipe is invalid.');
       return;
     }
 
-    const recipeModel = constructRecipeModel();
+    const recipeModel = constructRecipeModel(recipe);
     console.log(recipeModel);
 
     dispatch(addRecipe(recipeModel));
@@ -130,7 +78,11 @@ const RecipeAdd = () => {
     newDirections.splice(addedDirectionIndex, 0, addedDirection);
     
     for (let i = addedDirectionIndex + 1; i < newDirections.length; i++) {
-      newDirections[i].order++;
+      const newDirection = {
+        ...newDirections[i],
+        order: newDirections[i].order + 1,
+      };
+      newDirections[i] = newDirection;
     }
 
     setRecipe((prevState) => ({
@@ -153,11 +105,19 @@ const RecipeAdd = () => {
     // Adjust orders of others above or below edited index
     if (newIndex < oldIndex) {
       for (let i = newIndex + 1; i < oldIndex + 1; i++) {
-        newDirections[i].order++;
+        const newDirection = {
+          ...newDirections[i],
+          order: newDirections[i].order + 1,
+        };
+        newDirections[i] = newDirection;
       }
     } else {
       for (let i = oldIndex; i < newIndex; i++) {
-        newDirections[i].order--;
+        const newDirection = {
+          ...newDirections[i],
+          order: newDirections[i].order - 1,
+        };
+        newDirections[i] = newDirection;
       }
     }
 
@@ -172,7 +132,11 @@ const RecipeAdd = () => {
     newDirections.splice(index, 1);
 
     for (let i = index; i < newDirections.length; i++) {
-      newDirections[i].order--;
+      const newDirection = {
+        ...newDirections[i],
+        order: newDirections[i].order - 1,
+      };
+      newDirections[i] = newDirection;
     }
 
     setRecipe((prevState) => ({
