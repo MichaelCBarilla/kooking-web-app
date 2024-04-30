@@ -42,7 +42,7 @@ const RecipeAdd = () => {
   };
 
   const onAddIngredient = (addedIngredient) => {
-    addedIngredient.id = nanoid();
+    addedIngredient._id = nanoid();
     setRecipe((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients, addedIngredient],
@@ -73,7 +73,7 @@ const RecipeAdd = () => {
     const newDirections = [...recipe.directions];
     const addedDirectionIndex = addedDirection.order - 1;
 
-    addedDirection.id = nanoid();
+    addedDirection._id = nanoid();
 
     newDirections.splice(addedDirectionIndex, 0, addedDirection);
     

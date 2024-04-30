@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import RecipeCard from '../../components/recipes/RecipeCard';
-import { selectRecipes } from '../../redux/reducers/recipesSlice';
+import { getRecipes, selectAllRecipes } from '../../redux/reducers/recipesSlice';
+import { useDispatch } from 'react-redux';
 
 
 const Recipes = () => {
-  const recipes = useSelector(selectRecipes);
+  const recipes = useSelector(selectAllRecipes);
+  const dispatch = useDispatch();
+  dispatch(getRecipes())
 
   return (
     <Container>
@@ -28,12 +31,12 @@ const Recipes = () => {
         {recipes.map((recipe) => (
           <Col
             className='my-2'
-            key={recipe.id}
+            key={recipe._id}
             md={3} xs={6}>
             <RecipeCard
               title={recipe.title}
               imgUrl={recipe.imgUrl}
-              rid={recipe.id}
+              rid={recipe._id}
               description={recipe.description}
             />
           </Col>

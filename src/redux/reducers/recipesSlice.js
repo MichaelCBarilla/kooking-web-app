@@ -1,9 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 
-import { RECIPES } from '../../assets/DUMMY_RECIPE_DATA';
-
-const initialState = RECIPES;
+const initialState = {
+  recipes: [],
+  status: 'idle',
+  error: null
+}
 
 const recipesSlice = createSlice({
   name: 'recipes',
@@ -11,10 +13,10 @@ const recipesSlice = createSlice({
   reducers: {
     addRecipe: {
       reducer(state, action) {
-        state.push(action.payload);
+        state.recipes.push(action.payload);
       },
       prepare(recipe) {
-        recipe.id = nanoid();
+        recipe._id = nanoid();
         recipe.creator = 'hardcoded';
         return {
           payload: recipe,
@@ -23,21 +25,30 @@ const recipesSlice = createSlice({
     },
     editRecipe(state, action) {
       console.log(action);
-      const index = state.findIndex(recipe => recipe.id === action.payload.id);
+      const index = state.recipes.findIndex(recipe => recipe._id === action.payload._id);
       if (index !== -1) {
-        state[index] = action.payload;
+        state.recipes[index] = action.payload;
       }
     },
     deleteRecipe(state, action) {
-      state = state.filter(
-        (recipe) => recipe.id !== action.payload
+      state.recipes = state.recipes.filter(
+        (recipe) => recipe._id !== action.payload
       );
     },
   },
 });
 
+export const getRecipes = createAsyncThunk('recipes/getRecipes', async () => {
+  const response = await fetch('http://localhost:5555/recipes');
+  console.log(response);
+  return response.data;
+})
+
 export const { addRecipe, editRecipe, deleteRecipe } = recipesSlice.actions;
 
-export const selectRecipes = (state) => state.recipes;
+export const selectAllRecipes = (state) => state.recipes.recipes;
+
+export const selectRecipeById = (state, recipeId) =>
+  state.recipes.recipes.find(recipe => recipe._id === recipeId)
 
 export default recipesSlice.reducer;

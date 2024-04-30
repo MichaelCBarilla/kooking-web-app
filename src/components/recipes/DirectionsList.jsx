@@ -15,7 +15,7 @@ const DirectionsList = ({
         <ListGroup
           className='mb-2'>
           {directions.map((direction, i) => (
-            <Row key={direction.id}>
+            <Row key={direction._id}>
               <Col>
                 <ListGroup.Item
                   action={isEdit}

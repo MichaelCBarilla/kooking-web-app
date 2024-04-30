@@ -10,19 +10,15 @@ import GeneralRecipeForm from '../../components/recipes/form/GeneralRecipeForm';
 import IngredientForm from '../../components/recipes/form/IngredientForm';
 import DirectionsForm from '../../components/recipes/form/DirectionsForm';
 
-import { editRecipe, selectRecipes } from '../../redux/reducers/recipesSlice';
+import { editRecipe, selectRecipeById } from '../../redux/reducers/recipesSlice';
 
 import { isRecipeInvalid } from '../../util/recipeValidation';
 import { constructRecipeModel } from '../../util/recipeConstructor';
 
 const RecipeEdit = () => {
-  const recipes = useSelector(selectRecipes);
   const dispatch = useDispatch();
   const rid = useParams().rid;
-
-  const [recipe, setRecipe] = useState(
-    recipes.find((recipe) => recipe.id == rid)
-  );
+  const [recipe, setRecipe] = useState(useSelector(state => selectRecipeById(state, rid)));
 
   const onChangeGeneralRecipeForm = (valueType, newValue) => {
     const newRecipe = {
@@ -56,7 +52,7 @@ const RecipeEdit = () => {
   };
 
   const onAddIngredient = (addedIngredient) => {
-    addedIngredient.id = nanoid();
+    addedIngredient._id = nanoid();
     setRecipe((prevState) => ({
       ...prevState,
       ingredients: [...prevState.ingredients, addedIngredient],
@@ -87,7 +83,7 @@ const RecipeEdit = () => {
     const newDirections = [...recipe.directions];
     const addedDirectionIndex = addedDirection.order - 1;
 
-    addedDirection.id = nanoid();
+    addedDirection._id = nanoid();
 
     // Insert the edited direction at the new position
     newDirections.splice(addedDirectionIndex, 0, addedDirection);

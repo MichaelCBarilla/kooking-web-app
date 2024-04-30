@@ -15,7 +15,7 @@ const IngredientList = ({
       <Col>
         <ListGroup className='mb-2'>
           {ingredients.map((ingredient, i) => (
-            <Row key={ingredient.id}>
+            <Row key={ingredient._id}>
               <Col>
                 <ListGroup.Item
                   action={isEdit}
